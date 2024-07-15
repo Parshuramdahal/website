@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel and Tour</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background: url('https://i.pinimg.com/736x/1d/d2/de/1dd2de17b5d5c6e2850c02428577a080.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.6); /* Adding a semi-transparent black background for better readability */
+            color: #fff;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000; /* Ensure the header stays on top */
+        }
+
+        header h1 {
+            text-align: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            text-align: center;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin: 0 1rem;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .hero {
+            position: relative;
+            text-align: center;
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 5rem 1rem;
+        }
+
+        .hero-content h2 {
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+
+        .hero-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .hero-content .btn {
+            background: #ff6347;
+            color: #7d4444;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .destinations {
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .destinations h2 {
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            justify-content: center; /* Center items horizontally */
+        }
+
+        .destination {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .destination:hover {
+            transform: scale(1.05);
+        }
+
+        .destination img {
+            width: 100%;
+            height: auto;
+        }
+
+        .destination h3 {
+            padding: 0.5rem 0;
+            background: #6c4444;
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .details {
+            display: none;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .details img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+        .details iframe {
+            width: 100%;
+            height: 315px;
+            max-width: 560px;
+        }
+
+        /* Show the details section when it is the target */
+        :target {
+            display: block;
+        }
+
+        .about {
+            padding: 3rem 0;
+            background-color: #d1bbbb;
+            text-align: center;
+        }
+
+        .about h2 {
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact {
+            padding: 3rem 0;
+            background-color: #ae9494;
+            text-align: center;
+        }
+
+        .contact h2 {
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .contact ul li {
+            margin-bottom: 1rem;
+        }
+
+        .contact ul li strong {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background for footer */
+            color: #c2a3a3;
+            text-align: center;
+            padding: 1rem 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure the footer stays on top */
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        form {
+            background-color: #bcadad;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            margin: 3rem auto;
+        }
+
+        form h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form label {
+            color: #333;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="tel"],
+        form input[type="date"],
+        form input[type="time"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ae9898;
+            border-radius: 4px;
+        }
+
+        form input[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Explore the World with Coding Ninjas</h1>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Destinations</a></li>
+                    <li><a href="#">Tours</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#booking" class="btn">Book with Us</a></li> <!-- Added Book with Us button -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+	
+    <section class="hero">
+        <video src="https://www.w3schools.com/html/mov_bbb.mp4" autoplay muted loop></video>
+        <div class="hero-content">
+            <h2>Discover Your Next Adventure</h2>
+            <p>Explore exotic destinations with our expertly crafted tours.</p>
+            <a href="#destinations" class="btn">Explore Destinations</a>
+        </div>
+    </section>
+    <section class="destinations">
+        <div class="container">
+            <h2>Popular Destinations</h2>
+            <div class="destination-grid">
+                <div class="destination">
+                    <a href="#nepal">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRArjNXiA6ySI-8sBEOzSngn8clGY1EWT04B6UOQgBv4OBPK9gtHOG5fVHEq6IgrSPgLEk&usqp=CAU" alt="Nepal">
+                        <h3>Nepal</h3>
+                    </a>
+                </div>
+                <div class="destination">
+                    <a href="#india">
+                        <img src="https://img.onmanorama.com/content/dam/mm/en/travel/travel-news/images/2022/7/13/kerala-tourism.jpg" alt="India">
+                        <h3>India</h3>
+                    </a>
+                </div>
+                <div class="destination">
+                    <a href="#srilanka">
+                        <img src="https://lp-cms-production.imgix.net/2023-10/shutterstock653732554.jpg?w=1920&auto=format&q=75" alt="Srilanka">
+                        <h3>Srilanka</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="details" id="nepal">
+        <div class="container">
+            <img src="https://superdesk-pro-c.s3.amazonaws.com/sd-nepalitimes/20221109141132/636bac4c9c7e80680e077f24jpeg.jpg" alt="Nepal">
+            <h1>Lumbini</h1>
+            
+            <p>Walk in the footsteps of Buddha as you explore the region where he spent his childhood as Prince Siddhartha. The exact spot where Buddha was born is marked here in Lumbini and the site has understandably become one of the world’s most important holy sites.</p>
+            <img src="https://imgcld.yatra.com/ytimages/image/upload/v1466658591/Pokhara_Overview.jpg" alt="Pokhara">
+            
+            <h2>About Pokhara</h2>
+            <p>Situated amongst lakes at the northern end of the Pokhara valley and at the foot of the Annapurna Mountain Range which contains 3 of the world's 10 tallest mountains, Pokhara is truly a scenic and happening tourist spot. It is Nepal's second largest city and is a major spot for tourists that come to experience its many varied attractions.</p>
+            <iframe src="https://www.youtube.com/embed/jvN5hZzhFHM" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </section>
+    <section class="details" id="india">
+        <div class="container">
+            <img src="https://img.onmanorama.com/content/dam/mm/en/travel/travel-news/images/2022/7/13/kerala-tourism.jpg" alt="Kerala">
+            <h2>Kerala</h2>
+            <p>Kerala has an endless list of tourist destinations that will interest any traveller. Renowned for its scenic locations and natural beauty, Kerala is sure to enchant any nature lover with its hills, backwaters, beaches, waterfalls and wildlife. The state also has a rich heritage and thriving culture one can explore by visiting the various forts, palaces, museums, monuments and pilgrim centers. Both natural and manmade brilliance await you at every turn.</p>
+            <img src="https://cdn.kimkim.com/files/a/images/0eeb0b2d3d131727c4569c1b3333244bcad2d829/big-56442c8143144a69ce8183aa46b73f4a.jpg" alt="Taj Mahal">
+            <h2>Taj Mahal</h2>
+            <p>An immense mausoleum of white marble, built in Agra between 1631 and 1648 by order of the Mughal emperor Shah Jahan in memory of his favourite wife, the Taj Mahal is the jewel of Muslim art in India and one of the universally admired masterpieces of the world's heritage.</p>
+        </div>
+    </section>
+    <section class="details" id="srilanka">
+        <div class="container">
+            <img src="https://lp-cms-production.imgix.net/2023-10/shutterstock653732554.jpg?w=1920&auto=format&q=75" alt="Colombo">
+            <h2>Colombo</h2>
+            <p>Sri Lanka itinerary is complete without Colombo, the country’s culturally diverse hub. An ideal first taste of Sri Lanka, with tuk-tuks, cars and buses rushing through busy lanes, Colombo is renowned for its landmark buildings around the cosmopolitan Fort district, including the terracotta-roofed Dutch Hospital.</p>
+            <img src="https://lp-cms-production.imgix.net/2023-10/Stocksytxp5311549f81p300Medium642364.jpg?w=1920&auto=format&q=75" alt="Dambulla">
+            <h2>Dambulla</h2>
+            <p>An important part of the country’s pilgrim trail, set within a quiet jungle that's home to the native toque macaque (aka toque monkey), Rangiri Cave Temple in Dambulla is the most visited place in Sri Lanka.</p>
+        </div>
+    </section>
+    <section class="about" id="about">
+        <div class="container">
+            <h2>About Us</h2>
+            <p>At Coding Ninjas Travel, we believe that travel is more than just visiting new places; it’s about experiencing new cultures, meeting new people, and creating memories that last a lifetime. Our team is dedicated to making your travel experience seamless and unforgettable.</p>
+        </div>
+    </section>
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or need assistance with your travel plans, feel free to reach out to us.</p>
+            <ul>
+                <li><strong>Email:</strong> info@codingninjatravel.com</li>
+                <li><strong>Phone:</strong> +123-456-7890</li>
+                <li><strong>Address:</strong> 123 Coding Ninja Road, Travel City, World</li>
+            </ul>
+        </div>
+    </section>
+    <section class="booking" id="booking">
+        <div class="container">
+            <form action="/submit-booking" method="post">
+                <h2>Book Your Tour</h2>
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+
+                <label for="destination">Destination:</label>
+                <input type="text" id="destination" name="destination" required>
+
+                <label for="date">Date of Travel:</label>
+                <input type="date" id="date" name="date" required>
+
+                <label for="time">Time of Travel:</label>
+                <input type="time" id="time" name="time" required>
+
+                <input type="submit" value="Submit Booking">
+            </form>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Coding Ninjas Travel. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
